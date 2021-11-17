@@ -71,8 +71,8 @@ public class UsersDao {
                 String lastName = results.getString("LastName");
                 String phone = results.getString("Phone");
                 String email = results.getString("Email");
-
-                return new Users(resultUserName, password, firstName, lastName, phone, email);
+                Users user = new Users(resultUserName, password, firstName, lastName, email, phone);
+                return user;
             }
         } catch (SQLException e) {
             e.printStackTrace();
