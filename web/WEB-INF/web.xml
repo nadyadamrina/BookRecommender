@@ -5,6 +5,6 @@
          version="4.0">
     <display-name>Welcome</display-name>
     <welcome-file-list>
-        <welcome-file>FindUser.jsp</welcome-file>
+        <welcome-file>FindUsers.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

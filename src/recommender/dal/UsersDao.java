@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class UsersDao {
     protected ConnectionManager connectionManager;
@@ -89,6 +92,48 @@ public class UsersDao {
             }
         }
         return null;
+    }
+
+    public List<Users> getUsersFromLastName(String lastName) throws SQLException {
+        List<Users> usersList = new ArrayList<>();
+
+        String selectUsers = "SELECT UserName,Password,FirstName,LastName,Phone,Email FROM Users WHERE LastName=?";
+        Connection connection = null;
+        PreparedStatement selectStmt = null;
+        ResultSet results = null;
+        try {
+            connection = connectionManager.getConnection();
+            selectStmt = connection.prepareStatement(selectUsers);
+            selectStmt.setString(1, lastName);
+            results = selectStmt.executeQuery();
+            while(results.next()) {
+                String userName = results.getString("UserName");
+                String password = results.getString("Password");
+                String firstName = results.getString("FirstName");
+                String lastNameResult = results.getString("LastName");
+                String email = results.getString("Email");
+                String phone = results.getString("Phone");
+
+                Users user = new Users(userName, password, firstName, lastNameResult, email, phone);
+
+                usersList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(selectStmt != null) {
+                selectStmt.close();
+            }
+            if(results != null) {
+                results.close();
+            }
+        }
+
+        return usersList;
     }
 
     public Users updateName(Users user, String newFirstName, String newLastName) throws SQLException {
