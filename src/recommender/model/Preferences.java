@@ -2,11 +2,13 @@ package recommender.model;
 
 public class Preferences {
     protected int preferenceId;
+    protected String userName;
     protected Books.Genre primaryGenre;
     protected Books.Genre secondaryGenre;
 
-    public Preferences(int preferenceId, Books.Genre primaryGenre, Books.Genre secondaryGenre) {
+    public Preferences(int preferenceId, String userName, Books.Genre primaryGenre, Books.Genre secondaryGenre) {
         this.preferenceId = preferenceId;
+        this.userName = userName;
         this.primaryGenre = primaryGenre;
         this.secondaryGenre = secondaryGenre;
     }
@@ -17,6 +19,14 @@ public class Preferences {
 
     public void setPreferenceId(int preferenceId) {
         this.preferenceId = preferenceId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Books.Genre getPrimaryGenre() {
