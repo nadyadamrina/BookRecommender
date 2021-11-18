@@ -24,7 +24,16 @@ public class FindUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String> messages = new HashMap<String, String>();
+        sendRequest(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        sendRequest(req, resp);
+    }
+
+    private void sendRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        Map<String, String> messages = new HashMap<>();
         req.setAttribute("messages", messages);
 
         Users user = new Users();
@@ -48,4 +57,5 @@ public class FindUser extends HttpServlet {
 
         req.getRequestDispatcher("/FindUser.jsp").forward(req, resp);
     }
+
 }
