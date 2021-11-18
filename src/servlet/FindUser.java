@@ -1,4 +1,4 @@
-package recommender.servlet;
+package servlet;
 
 import recommender.dal.UsersDao;
 import recommender.model.Users;
@@ -24,7 +24,7 @@ public class FindUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String> messages = new HashMap<String, String>();
+        Map<String, String> messages = new HashMap<>();
         req.setAttribute("messages", messages);
 
         Users user = new Users();
@@ -33,7 +33,6 @@ public class FindUser extends HttpServlet {
         if (username == null || username.trim().isEmpty()) {
             messages.put("success", "Please enter a valid username.");
         } else {
-
             try {
                 user = usersDao.getUserFromUserName(username);
             } catch (SQLException e) {
@@ -42,7 +41,32 @@ public class FindUser extends HttpServlet {
             }
             messages.put("success", "Displaying results for " + username);
 
-            messages.put("previousUserName", username);
+            messages.put("previousUsername", username);
+        }
+        req.setAttribute("user", user);
+
+        req.getRequestDispatcher("/FindUser.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Map<String, String> messages = new HashMap<>();
+        req.setAttribute("messages", messages);
+
+        Users user = new Users();
+
+        String username = req.getParameter("username");
+        if (username == null || username.trim().isEmpty()) {
+            messages.put("success", "Please enter a valid username.");
+        } else {
+            try {
+                user = usersDao.getUserFromUserName(username);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new IOException(e);
+            }
+            messages.put("success", "Displaying results for " + username);
+
         }
         req.setAttribute("user", user);
 

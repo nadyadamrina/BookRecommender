@@ -1,4 +1,4 @@
-package recommender.servlet;
+package servlet;
 
 public class FindRecommendations {
 }
