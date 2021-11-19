@@ -40,7 +40,10 @@
       <th>LastName</th>
       <th>Email</th>
       <th>Phone</th>
+      <th>UpdateUser</th>
+      <th>DeleteUser</th>
       <th>AlreadyRead</th>
+
     </tr>
 
     <c:forEach items="${users}" var="user" >
@@ -51,6 +54,8 @@
         <td><c:out value="${user.getLastName()}" /></td>
         <td><c:out value="${user.getEmail()}" /></td>
         <td><c:out value="${user.getPhone()}" /></td>
+        <td><a href="updateuser?username=<c:out value="${user.getUserName()}"/>">UpdateUser</a></td>
+        <td><a href="deleteuser?username=${user.getUserName()}">DeleteUser</a></td>
         <td><a href="alreadyread?username=<c:out value="${user.getUserName()}"/>">AlreadyRead</a></td>
       </tr>
     </c:forEach>

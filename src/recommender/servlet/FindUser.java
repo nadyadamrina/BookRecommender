@@ -54,10 +54,7 @@ public class FindUser extends HttpServlet {
             messages.put("previousUserName", username);
         }
 
-
         req.setAttribute("user", user);
-
-
         req.getRequestDispatcher("/FindUser.jsp").forward(req, resp);
     }
 

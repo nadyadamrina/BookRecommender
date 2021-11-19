@@ -10,28 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/createuser")
-public class CreateUser extends HttpServlet {
+@WebServlet("/deleteuser")
+public class DeleteUser extends HttpServlet {
     protected UsersDao usersDao;
 
     @Override
-    public void init() {
-        usersDao = UsersDao.getInstance();
+    public void init()  {
+       usersDao = UsersDao.getInstance();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String> messages = new HashMap<>();
-        req.setAttribute("messages", messages);
 
-        req.getRequestDispatcher("/CreateUser.jsp").forward(req, resp);
+        Map<String, String> messages = new HashMap<String, String>();
+        req.setAttribute("messages", messages);
+        messages.put("title", "Delete User");
+        req.getRequestDispatcher("/DeleteUser.jsp").forward(req, resp);
     }
 
     @Override
@@ -39,26 +36,31 @@ public class CreateUser extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
 
+        // Retrieve and validate name.
         String userName = req.getParameter("username");
         if (userName == null || userName.trim().isEmpty()) {
-            messages.put("success", "Invalid UserName");
+            messages.put("title", "Invalid UserName");
+            messages.put("disableSubmit", "true");
         } else {
-            String password = req.getParameter("password");
-            String firstName = req.getParameter("firstname");
-            String lastName = req.getParameter("lastname");
-            String phone = req.getParameter("phone");
-            String email = req.getParameter("email");
-
+            // Delete the BlogUser.
+            Users user = new Users();
+            user.setUserName(userName);
             try {
-                Users user = new Users(userName, password, firstName, lastName, email, phone);
-                user= usersDao.create(user);
-                messages.put("success", "Successfully created " + userName);
+                user = usersDao.delete(user);
+                // Update the message.
+                if (user == null) {
+                    messages.put("title", "Successfully deleted " + userName);
+                    messages.put("disableSubmit", "true");
+                } else {
+                    messages.put("title", "Failed to delete " + userName);
+                    messages.put("disableSubmit", "false");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new IOException(e);
             }
         }
 
-        req.getRequestDispatcher("/CreateUser.jsp").forward(req, resp);
+        req.getRequestDispatcher("/DeleteUser.jsp").forward(req, resp);
     }
 }

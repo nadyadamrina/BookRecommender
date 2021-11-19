@@ -40,6 +40,8 @@
             <th>LastName</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>UpdateUser</th>
+            <th>DeleteUser</th>
             <th>AlreadyRead</th>
         </tr>
 
@@ -50,6 +52,8 @@
             <td>${user.getLastName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getPhone()}</td>
+            <td><a href="updateuser?username=${user.getUserName()}">UpdateUser</a></td>
+            <td><a href="deleteuser?username=${user.getUserName()}">DeleteUser</a></td>
             <td><a href="alreadyread?username=${user.getUserName()}">AlreadyRead</a></td>
         </tr>
     </table>
