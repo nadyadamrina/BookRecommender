@@ -14,7 +14,7 @@
 </head>
 <body>
   <form action="findusers" method="post">
-    <h1>Search for a BlogUser by FirstName</h1>
+    <h1>Search for a BlogUser by Last Name</h1>
     <p>
       <label for="lastname">Last name</label>
       <input id="lastname" name="lastname" value="">
@@ -39,6 +39,7 @@
       <th>LastName</th>
       <th>Email</th>
       <th>Phone</th>
+      <th>AlreadyRead</th>
     </tr>
 
     <c:forEach items="${users}" var="user" >
@@ -49,6 +50,7 @@
         <td><c:out value="${user.getLastName()}" /></td>
         <td><c:out value="${user.getEmail()}" /></td>
         <td><c:out value="${user.getPhone()}" /></td>
+        <td><a href="alreadyread?username=<c:out value="${user.getUserName()}"/>">AlreadyRead</a></td>
       </tr>
     </c:forEach>
   </table>

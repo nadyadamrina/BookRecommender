@@ -35,7 +35,7 @@
             <th>LastName</th>
             <th>Email</th>
             <th>Phone</th>
-
+            <th>AlreadyRead</th>
         </tr>
         <tr>
             <td>${user.getUserName()}</td>
@@ -44,6 +44,7 @@
             <td>${user.getLastName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getPhone()}</td>
+            <td><a href="alreadyread?username=<c:out value="${user.getUserName()}"/>">AlreadyRead</a></td>
         </tr>
     </table>
 </body>
