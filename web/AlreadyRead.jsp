@@ -18,20 +18,21 @@
 <h1>Already Read for User with Username: ${fn:escapeXml(param.username)}</h1>
 <table border="1">
     <tr>
+        <th>Completed</th>
         <th>ISBN</th>
         <th>Title</th>
-        <th>Completed</th>
+        <th>Authors</th>
     </tr>
 
-    <c:forEach items="${alreadyread}" var="read" >
-        <c:forEach items="${books}" var="book" >
+    <c:forEach items="${alreadyread}" var="read" varStatus="status">
+
         <tr>
-            <td><c:out value="${read.getIsbn()}" /></td>
-            <td><c:out value="${book.getTitle()}" /></td>
-            <td><c:out value ="${book.getCompleted()}" /></td>
             <td><c:out value="${read.getCompleted()}" /></td>
+            <td><c:out value="${read.getIsbn()}" /></td>
+            <td>${books[status.index].getTitle()}</td>
+            <td>${authors[status.index].getFirstName().concat(" ").concat(authors[status.index].getLastName())}</td>
         </tr>
-        </c:forEach>
+
     </c:forEach>
 
 </table>
