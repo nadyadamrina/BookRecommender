@@ -15,26 +15,26 @@
     <title>Already Read</title>
 </head>
 <body>
-<h1>Already Read for User with Username: ${fn:escapeXml(param.username)}</h1>
-<table border="1">
-    <tr>
-        <th>Completed</th>
-        <th>ISBN</th>
-        <th>Title</th>
-        <th>Authors</th>
-    </tr>
-
-    <c:forEach items="${alreadyread}" var="read" varStatus="status">
-
+    <h1>Already Read for User with Username: ${fn:escapeXml(param.username)}</h1>
+    <table border="1">
         <tr>
-            <td><c:out value="${read.getCompleted()}" /></td>
-            <td><c:out value="${read.getIsbn()}" /></td>
-            <td>${books[status.index].getTitle()}</td>
-            <td>${authors[status.index].getFirstName().concat(" ").concat(authors[status.index].getLastName())}</td>
+            <th>Completed</th>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Authors</th>
         </tr>
 
-    </c:forEach>
+        <c:forEach items="${alreadyread}" var="read" varStatus="status">
 
-</table>
+            <tr>
+                <td><c:out value="${read.getCompleted()}" /></td>
+                <td><c:out value="${read.getIsbn()}" /></td>
+                <td>${books[status.index].getTitle()}</td>
+                <td>${authors[status.index].getFirstName().concat(" ").concat(authors[status.index].getLastName())}</td>
+            </tr>
+
+        </c:forEach>
+
+    </table>
 </body>
 </html>

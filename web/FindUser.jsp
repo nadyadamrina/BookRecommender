@@ -43,6 +43,7 @@
             <th>UpdateUser</th>
             <th>DeleteUser</th>
             <th>AlreadyRead</th>
+            <th>Recommendation</th>
         </tr>
 
         <tr>
@@ -55,6 +56,7 @@
             <td><a href="updateuser?username=${user.getUserName()}">UpdateUser</a></td>
             <td><a href="deleteuser?username=${user.getUserName()}">DeleteUser</a></td>
             <td><a href="alreadyread?username=${user.getUserName()}">AlreadyRead</a></td>
+            <td><a href="recommendation?username=${user.getUserName()}">Recommendation</a></td>
         </tr>
     </table>
 </body>

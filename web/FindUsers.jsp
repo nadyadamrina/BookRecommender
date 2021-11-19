@@ -43,7 +43,7 @@
       <th>UpdateUser</th>
       <th>DeleteUser</th>
       <th>AlreadyRead</th>
-
+      <th>Recommendation</th>
     </tr>
 
     <c:forEach items="${users}" var="user" >
@@ -57,6 +57,7 @@
         <td><a href="updateuser?username=<c:out value="${user.getUserName()}"/>">UpdateUser</a></td>
         <td><a href="deleteuser?username=${user.getUserName()}">DeleteUser</a></td>
         <td><a href="alreadyread?username=<c:out value="${user.getUserName()}"/>">AlreadyRead</a></td>
+        <td><a href="recommendation?username=<c:out value="${user.getUserName()}"/>">Recommendation</a></td>
       </tr>
     </c:forEach>
   </table>
