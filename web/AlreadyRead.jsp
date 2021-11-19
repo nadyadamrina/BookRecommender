@@ -24,21 +24,16 @@
     </tr>
 
     <c:forEach items="${alreadyread}" var="read" >
+        <c:forEach items="${books}" var="book" >
         <tr>
             <td><c:out value="${read.getIsbn()}" /></td>
-            <td></td>
-            <td></td>
+            <td><c:out value="${book.getTitle()}" /></td>
+            <td><c:out value ="${book.getCompleted()}" /></td>
             <td><c:out value="${read.getCompleted()}" /></td>
         </tr>
+        </c:forEach>
     </c:forEach>
 
-    <c:forEach items="${books}" var="book" >
-        <tr>
-            <td></td>
-            <td><c:out value="${book.getTitle()}" /></td>
-            <td></td>
-        </tr>
-    </c:forEach>
 </table>
 </body>
 </html>

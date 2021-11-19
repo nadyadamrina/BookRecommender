@@ -1,7 +1,9 @@
 package recommender.dal;
 
 import recommender.model.Authors;
+import recommender.model.Books;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,5 +143,38 @@ public class AuthorsDao {
                 deleteStmt.close();
             }
         }
+    }
+
+    public Authors getAuthorById(int authorId) throws SQLException {
+        String selectBook = "SELECT * FROM Authors WHERE AuthorId=?;";
+        Connection connection = null;
+        PreparedStatement selectStmt = null;
+        ResultSet results = null;
+        try {
+            connection = connectionManager.getConnection();
+            selectStmt = connection.prepareStatement(selectBook);
+            selectStmt.setInt(1, authorId);
+            results = selectStmt.executeQuery();
+            if(results.next()) {
+                int authorIdResult = results.getInt("AuthorId");
+                String firstName = results.getString("FirstName");
+                String lastName = results.getString("LastName");
+                return new Authors(authorIdResult, firstName, lastName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(selectStmt != null) {
+                selectStmt.close();
+            }
+            if(results != null) {
+                results.close();
+            }
+        }
+        return null;
     }
 }

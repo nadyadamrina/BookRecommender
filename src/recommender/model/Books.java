@@ -163,19 +163,92 @@ public class Books {
         ChristianBooksAndBibles("Christian Books & Bibles"), ComicsAndGraphicNovels("Comics & Graphic Novels"),
         ComputersAndTechnology("Computers & Technology"), CookbooksFoodAndWine("Cookbooks, Food & Wine"),
         CraftsHobbiesAndHome("Crafts, Hobbies & Home"), EducationAndTeaching("Education & Teaching"),
-        EngineeringAndTransportation("Engineering & Transportation"), GayAndLesbian("Gay & Lesbian"), HealthFitnessAndDieting("Health, Fitness & Dieting"),
+        EngineeringAndTransportation("Engineering & Transportation"), GayAndLesbian("Gay & Lesbian"),
+        HealthFitnessAndDieting("Health, Fitness & Dieting"),
         History("History"), HumorAndEntertainment("Humor & Entertainment"), Law("Law"),
         LiteratureAndFiction("Literature & Fiction"), MedicalBooks("Medical Books"),
         MysteryThrillerAndSuspense("Mystery, Thriller & Suspense"), ParentingAndRelationships("Parenting & Relationships"),
         PoliticsAndSocialSciences("Politics & Social Sciences"), Reference("Reference"), ReligionAndSpirituality("Religion & Spirituality"),
         Romance("Romance"), ScienceAndMath("Science & Math"), ScienceFictionAndFantasy("Science Fiction & Fantasy"),
         SelfHelp("Self-Help"), SportsAndOutdoors("Sports & Outdoors"), TeenAndYoungAdult("Teen & Young Adult"),
-        TestPreparation("Test Preparation"), Travel("Travel");
+        TestPreparation("Test Preparation"), Travel("Travel"), Unknown("Unknown");
 
         private final String value;
 
         Genre(String value) {
             this.value = value;
+        }
+
+        public static Genre parse(String value) {
+            switch (value) {
+                case "Arts & Photography":
+                    return Genre.ArtsAndPhotography;
+                case "Biographies & Memoirs":
+                    return Genre.BiographiesAndMemoirs;
+                case "Business & Money":
+                    return Genre.BusinessAndMoney;
+                case "Calendars":
+                    return Genre.Calendars;
+                case "Children's Books":
+                    return Genre.ChildrensBooks;
+                case "Christian Books & Bibles":
+                    return Genre.ChristianBooksAndBibles;
+                case "Comics & Graphic Novels":
+                    return Genre.ComicsAndGraphicNovels;
+                case "Computers & Technology":
+                    return Genre.ComputersAndTechnology;
+                case "Cookbooks, Food & Wine":
+                    return Genre.CookbooksFoodAndWine;
+                case "Crafts, Hobbies & Home":
+                    return Genre.CraftsHobbiesAndHome;
+                case "Education & Teaching":
+                    return Genre.EducationAndTeaching;
+                case "Engineering & Transportation":
+                    return Genre.EngineeringAndTransportation;
+                case "Gay & Lesbian":
+                    return Genre.GayAndLesbian;
+                case "Health, Fitness & Dieting":
+                    return Genre.HealthFitnessAndDieting;
+                case "History":
+                    return Genre.History;
+                case "Humor & Entertainment":
+                    return Genre.HumorAndEntertainment;
+                case "Law":
+                    return Genre.Law;
+                case "Literature & Fiction":
+                    return Genre.LiteratureAndFiction;
+                case "Medical Books":
+                    return Genre.MedicalBooks;
+                case "Mystery, Thriller & Suspense":
+                    return Genre.MysteryThrillerAndSuspense;
+                case "Parenting & Relationships":
+                    return Genre.ParentingAndRelationships;
+                case "Politics & Social Sciences":
+                    return Genre.PoliticsAndSocialSciences;
+                case "Reference":
+                    return Genre.Reference;
+                case "Religion & Spirituality":
+                    return Genre.ReligionAndSpirituality;
+                case "Romance":
+                    return Genre.Romance;
+                case "Science & Math":
+                    return Genre.ScienceAndMath;
+                case "Science Fiction & Fantasy":
+                    return Genre.ScienceFictionAndFantasy;
+                case "Self-Help":
+                    return Genre.SelfHelp;
+                case "Sports & Outdoors":
+                    return Genre.SportsAndOutdoors;
+                case "Teen & Young Adult":
+                    return Genre.TeenAndYoungAdult;
+                case "Test Preparation":
+                    return Genre.TestPreparation;
+                case "Travel":
+                    return Genre.Travel;
+
+                default:
+                    return Genre.Unknown;
+            }
         }
     }
 }

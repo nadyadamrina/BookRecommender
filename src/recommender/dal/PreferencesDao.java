@@ -75,8 +75,8 @@ public class PreferencesDao {
             if(results.next()) {
                 int resultPreferenceId = results.getInt("PreferenceId");
                 String userName = results.getString("UserName");
-                Books.Genre genrePrimary = Books.Genre.valueOf(results.getString("PrimaryGenre"));
-                Books.Genre secondaryGenre = Books.Genre.valueOf(results.getString("SecondaryGenre"));
+                Books.Genre genrePrimary = Books.Genre.parse(results.getString("PrimaryGenre"));
+                Books.Genre secondaryGenre = Books.Genre.parse(results.getString("SecondaryGenre"));
 
                 Preferences preference = new Preferences(resultPreferenceId, userName, genrePrimary, secondaryGenre);
                 return preference;
@@ -115,8 +115,8 @@ public class PreferencesDao {
             while(results.next()) {
                 int preferenceId = results.getInt("PreferenceId");
                 String resultUserName = results.getString("UserName");
-                Books.Genre genrePrimary = Books.Genre.valueOf(results.getString("PrimaryGenre"));
-                Books.Genre secondaryGenre = Books.Genre.valueOf(results.getString("SecondaryGenre"));
+                Books.Genre genrePrimary = Books.Genre.parse(results.getString("PrimaryGenre"));
+                Books.Genre secondaryGenre = Books.Genre.parse(results.getString("SecondaryGenre"));
 
                 Preferences preference = new Preferences(preferenceId, resultUserName, genrePrimary, secondaryGenre);
                 preferences.add(preference);

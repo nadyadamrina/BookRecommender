@@ -72,9 +72,9 @@ public class BooksDao {
                 String title = results.getString("Title");
                 int authorId = results.getInt("AuthorId");
                 String genreAsString = results.getString("Genre");
-                Books.Genre genre = Books.Genre.valueOf(genreAsString);
+                Books.Genre genre = Books.Genre.parse(genreAsString);
                 String description = results.getString("Description");
-                String imageUri = results.getString("ImageUri");
+                String imageUri = results.getString("ImageUrl");
                 BigDecimal averageRating = results.getBigDecimal("AverageRating");
                 int publicationMonth = results.getInt("PublicationMonth");
                 int publicationDay = results.getInt("PublicationDay");
@@ -118,7 +118,7 @@ public class BooksDao {
                 String ISBN = results.getString("ISBN");
                 String resultTitle = results.getString("Title");
                 int authorId = results.getInt("AuthorId");
-                Books.Genre genre = Books.Genre.valueOf(results.getString("Genre"));
+                Books.Genre genre = Books.Genre.parse(results.getString("Genre"));
                 String description = results.getString("Description");
                 String imageUri = results.getString("ImageUri");
                 BigDecimal averageRating = results.getBigDecimal("AverageRating");
@@ -166,7 +166,7 @@ public class BooksDao {
                 String ISBN = results.getString("ISBN");
                 String title = results.getString("Title");
                 int authorId = results.getInt("AuthorId");
-                Books.Genre resultGenre = Books.Genre.valueOf(genre);
+                Books.Genre resultGenre = Books.Genre.parse(genre);
                 String description = results.getString("Description");
                 String imageUri = results.getString("ImageUri");
                 BigDecimal averageRating = results.getBigDecimal("AverageRating");
@@ -213,7 +213,7 @@ public class BooksDao {
             while(results.next()) {
                 String ISBN = results.getString("ISBN");
                 String title = results.getString("Title");
-                Books.Genre genre = Books.Genre.valueOf(results.getString("Genre"));
+                Books.Genre genre = Books.Genre.parse(results.getString("Genre"));
                 String description = results.getString("Description");
                 String imageUri = results.getString("ImageUri");
                 BigDecimal averageRating = results.getBigDecimal("AverageRating");
@@ -256,7 +256,7 @@ public class BooksDao {
             updateStmt.setString(2, book.getIsbn());
             updateStmt.executeUpdate();
 
-            book.setGenre(Books.Genre.valueOf(newGenre));
+            book.setGenre(Books.Genre.parse(newGenre));
             return book;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,8 +1,10 @@
 package recommender.servlet;
 
 import recommender.dal.AlreadyReadDao;
+import recommender.dal.AuthorsDao;
 import recommender.dal.BooksDao;
 import recommender.model.AlreadyRead;
+import recommender.model.Authors;
 import recommender.model.Books;
 import recommender.model.Users;
 
@@ -22,11 +24,13 @@ import java.util.Map;
 public class FindUserAlreadyRead extends HttpServlet {
     protected AlreadyReadDao alreadyReadDao;
     protected BooksDao booksDao;
+    protected AuthorsDao authorsDao;
 
     @Override
     public void init() throws ServletException {
         alreadyReadDao = AlreadyReadDao.getInstance();
         booksDao = BooksDao.getInstance();
+        authorsDao = AuthorsDao.getInstance();
     }
 
     @Override
@@ -50,12 +54,15 @@ public class FindUserAlreadyRead extends HttpServlet {
             messages.put("title", "BlogPosts for " + userName);
         }
 
-        List<AlreadyRead> alreadyReads;
+        List<AlreadyRead> alreadyReads = new ArrayList<>();
         List<Books> books = new ArrayList<>();
+        List<Authors> authors = new ArrayList<>();
         try {
             alreadyReads = alreadyReadDao.getAlreadyReadsByUserName(userName);
             for (AlreadyRead alreadyRead : alreadyReads) {
-                books.add(booksDao.getBookByISBN(alreadyRead.getIsbn()));
+                Books book = booksDao.getBookByISBN(alreadyRead.getIsbn());
+                books.add(book);
+                authors.add(authorsDao.getAuthorById(book.getAuthorId()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,6 +70,7 @@ public class FindUserAlreadyRead extends HttpServlet {
         }
         req.setAttribute("alreadyread", alreadyReads);
         req.setAttribute("books", books);
+        req.setAttribute("authors", authors);
         req.getRequestDispatcher("/AlreadyRead.jsp").forward(req, resp);
     }
 }
