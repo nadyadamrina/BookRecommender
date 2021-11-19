@@ -1,7 +1,9 @@
 package recommender.servlet;
 
 import recommender.dal.AlreadyReadDao;
+import recommender.dal.BooksDao;
 import recommender.model.AlreadyRead;
+import recommender.model.Books;
 import recommender.model.Users;
 
 import javax.servlet.ServletException;
@@ -19,10 +21,12 @@ import java.util.Map;
 @WebServlet("/alreadyread")
 public class FindUserAlreadyRead extends HttpServlet {
     protected AlreadyReadDao alreadyReadDao;
+    protected BooksDao booksDao;
 
     @Override
     public void init() throws ServletException {
         alreadyReadDao = AlreadyReadDao.getInstance();
+        booksDao = BooksDao.getInstance();
     }
 
     @Override
@@ -47,13 +51,18 @@ public class FindUserAlreadyRead extends HttpServlet {
         }
 
         List<AlreadyRead> alreadyReads;
+        List<Books> books = new ArrayList<>();
         try {
             alreadyReads = alreadyReadDao.getAlreadyReadsByUserName(userName);
+            for (AlreadyRead alreadyRead : alreadyReads) {
+                books.add(booksDao.getBookByISBN(alreadyRead.getIsbn()));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IOException(e);
         }
         req.setAttribute("alreadyread", alreadyReads);
+        req.setAttribute("books", books);
         req.getRequestDispatcher("/AlreadyRead.jsp").forward(req, resp);
     }
 }

@@ -21,7 +21,7 @@ public class Books {
                  int publicationMonth, int publicationDay, int publicationYear, String publisher, int numberOfPages, int numberOfRatings) {
         this.isbn = isbn;
         this.title = title;
-        AuthorId = authorId;
+        this.AuthorId = authorId;
         this.genre = genre;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -158,28 +158,24 @@ public class Books {
     }
 
     public enum Genre {
-       ArtsAndPhotography("Arts & Photography"), BiographiesAndMemoirs("Biographies & Memoirs"),
+        ArtsAndPhotography("Arts & Photography"), BiographiesAndMemoirs("Biographies & Memoirs"),
         BusinessAndMoney("Business & Money"), Calendars("Calendars"), ChildrensBooks("Children's Books"),
-        ComicsAndGraphicNovels("Comics & Graphic Novels"), ComputersAndTechnology("Computers & Technology"),
-        CookbooksFoodAndWine("Cookbooks, Food & Wine"), CraftsHobbiesAndHome("Crafts, Hobbies & Home"),
-        ChristianBooksAndBibles("Christian Books & Bibles"), EngineeringAndTransportation("Engineering & Transportation"),
-        HealthFitnessAndDieting("Health, Fitness & Dieting"), History("History"), HumorAndEntertainment("Humor & Entertainment"),
-        Law("Law"), LiteratureAndFiction("Literature & Fiction"), MedicalBooks("Medical Books"),
+        ChristianBooksAndBibles("Christian Books & Bibles"), ComicsAndGraphicNovels("Comics & Graphic Novels"),
+        ComputersAndTechnology("Computers & Technology"), CookbooksFoodAndWine("Cookbooks, Food & Wine"),
+        CraftsHobbiesAndHome("Crafts, Hobbies & Home"), EducationAndTeaching("Education & Teaching"),
+        EngineeringAndTransportation("Engineering & Transportation"), GayAndLesbian("Gay & Lesbian"), HealthFitnessAndDieting("Health, Fitness & Dieting"),
+        History("History"), HumorAndEntertainment("Humor & Entertainment"), Law("Law"),
+        LiteratureAndFiction("Literature & Fiction"), MedicalBooks("Medical Books"),
         MysteryThrillerAndSuspense("Mystery, Thriller & Suspense"), ParentingAndRelationships("Parenting & Relationships"),
-        PoliticsAndSocialSciences("Politics & Social Sciences"), Reference("Reference"),
-        ReligionAndSpirituality("Religion & Spirituality"), Romance("Romance"), ScienceAndMath("Science & Math"),
-        ScienceFictionAndFantasy("Science Fiction & Fantasy"), SelfHelp("Self-Help"), SportsAndOutdoors("Sports & Outdoors"),
-        TeenAndYoungAdult("Teen & Young Adult"), TestPreparation("Test Preparation"), Travel("Travel"),
-        GayAndLesbian("Gay & Lesbian"), EducationAndTeaching("Education & Teaching");
+        PoliticsAndSocialSciences("Politics & Social Sciences"), Reference("Reference"), ReligionAndSpirituality("Religion & Spirituality"),
+        Romance("Romance"), ScienceAndMath("Science & Math"), ScienceFictionAndFantasy("Science Fiction & Fantasy"),
+        SelfHelp("Self-Help"), SportsAndOutdoors("Sports & Outdoors"), TeenAndYoungAdult("Teen & Young Adult"),
+        TestPreparation("Test Preparation"), Travel("Travel");
 
-       private final String value;
+        private final String value;
 
         Genre(String value) {
             this.value = value;
-        }
-
-        public String getValue() {
-            return value;
         }
     }
 }

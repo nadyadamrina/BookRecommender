@@ -71,7 +71,8 @@ public class BooksDao {
             if(results.next()) {
                 String title = results.getString("Title");
                 int authorId = results.getInt("AuthorId");
-                Books.Genre genre = Books.Genre.valueOf(results.getString("Genre"));
+                String genreAsString = results.getString("Genre");
+                Books.Genre genre = Books.Genre.valueOf(genreAsString);
                 String description = results.getString("Description");
                 String imageUri = results.getString("ImageUri");
                 BigDecimal averageRating = results.getBigDecimal("AverageRating");
