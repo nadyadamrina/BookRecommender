@@ -25,6 +25,11 @@
     </form>
 
     <br/>
+    <div id="findusers"><a href="findusers">Find Users by Last Name</a></div>
+    <div id="createuser"><a href="createuser">Create a User</a></div>
+    <br/>
+
+    <br/>
     <h1>Matching User</h1>
 
     <table border="1px">
@@ -37,6 +42,7 @@
             <th>Phone</th>
             <th>AlreadyRead</th>
         </tr>
+
         <tr>
             <td>${user.getUserName()}</td>
             <td>${user.getPassword()}</td>
@@ -44,7 +50,7 @@
             <td>${user.getLastName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getPhone()}</td>
-            <td><a href="alreadyread?username=<c:out value="${user.getUserName()}"/>">AlreadyRead</a></td>
+            <td><a href="alreadyread?username=${user.getUserName()}">AlreadyRead</a></td>
         </tr>
     </table>
 </body>

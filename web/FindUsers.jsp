@@ -27,7 +27,8 @@
   </form>
 
   <br/>
-  <div id="finduser"><a href="finduser">Find User by Username</a></div>
+    <div id="finduser"><a href="finduser">Find User by Username</a></div>
+    <div id="createuser"><a href="createuser">Create a User</a></div>
   <br/>
 
   <h1>Matching Users</h1>
