@@ -13,6 +13,12 @@ public class Preferences {
         this.secondaryGenre = secondaryGenre;
     }
 
+    public Preferences(String userName, Books.Genre primaryGenre, Books.Genre secondaryGenre) {
+        this.userName = userName;
+        this.primaryGenre = primaryGenre;
+        this.secondaryGenre = secondaryGenre;
+    }
+
     public int getPreferenceId() {
         return preferenceId;
     }

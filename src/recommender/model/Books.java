@@ -1,6 +1,8 @@
 package recommender.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Books {
     protected String isbn;
@@ -171,7 +173,7 @@ public class Books {
         PoliticsAndSocialSciences("Politics & Social Sciences"), Reference("Reference"), ReligionAndSpirituality("Religion & Spirituality"),
         Romance("Romance"), ScienceAndMath("Science & Math"), ScienceFictionAndFantasy("Science Fiction & Fantasy"),
         SelfHelp("Self-Help"), SportsAndOutdoors("Sports & Outdoors"), TeenAndYoungAdult("Teen & Young Adult"),
-        TestPreparation("Test Preparation"), Travel("Travel"), Unknown("Unknown");
+        TestPreparation("Test Preparation"), Travel("Travel");
 
         private final String value;
 
@@ -179,76 +181,120 @@ public class Books {
             this.value = value;
         }
 
+
+
+        public String getValue() {
+            return value;
+        }
+
+        public static List<String> getValues() {
+            List<String> values = new ArrayList<>();
+            for (Genre genre : Genre.values()) {
+                values.add(genre.getValue());
+            }
+
+            return values;
+        }
+
         public static Genre parse(String value) {
             switch (value) {
                 case "Arts & Photography":
+                case "Arts":
                     return Genre.ArtsAndPhotography;
                 case "Biographies & Memoirs":
+                case "Biographies":
                     return Genre.BiographiesAndMemoirs;
                 case "Business & Money":
+                case "Business":
                     return Genre.BusinessAndMoney;
                 case "Calendars":
                     return Genre.Calendars;
                 case "Children's Books":
+                case "Children's":
                     return Genre.ChildrensBooks;
                 case "Christian Books & Bibles":
+                case "Christian":
                     return Genre.ChristianBooksAndBibles;
                 case "Comics & Graphic Novels":
+                case "Comics":
                     return Genre.ComicsAndGraphicNovels;
                 case "Computers & Technology":
+                case "Computers":
                     return Genre.ComputersAndTechnology;
                 case "Cookbooks, Food & Wine":
+                case "Cookbooks,":
                     return Genre.CookbooksFoodAndWine;
                 case "Crafts, Hobbies & Home":
+                case "Crafts,":
                     return Genre.CraftsHobbiesAndHome;
                 case "Education & Teaching":
+                case "Education":
                     return Genre.EducationAndTeaching;
                 case "Engineering & Transportation":
+                case "Engineering":
                     return Genre.EngineeringAndTransportation;
                 case "Gay & Lesbian":
+                case "Gay":
                     return Genre.GayAndLesbian;
                 case "Health, Fitness & Dieting":
+                case "Health,":
                     return Genre.HealthFitnessAndDieting;
                 case "History":
                     return Genre.History;
                 case "Humor & Entertainment":
+                case "Humor":
                     return Genre.HumorAndEntertainment;
                 case "Law":
                     return Genre.Law;
                 case "Literature & Fiction":
+                case "Literature":
                     return Genre.LiteratureAndFiction;
                 case "Medical Books":
+                case "Medical":
                     return Genre.MedicalBooks;
                 case "Mystery, Thriller & Suspense":
+                case "Mystery,":
                     return Genre.MysteryThrillerAndSuspense;
                 case "Parenting & Relationships":
+                case "Parenting":
                     return Genre.ParentingAndRelationships;
                 case "Politics & Social Sciences":
+                case "Politics":
                     return Genre.PoliticsAndSocialSciences;
                 case "Reference":
                     return Genre.Reference;
                 case "Religion & Spirituality":
+                case "Religion":
                     return Genre.ReligionAndSpirituality;
                 case "Romance":
                     return Genre.Romance;
                 case "Science & Math":
                     return Genre.ScienceAndMath;
                 case "Science Fiction & Fantasy":
+                case "Science":
                     return Genre.ScienceFictionAndFantasy;
                 case "Self-Help":
                     return Genre.SelfHelp;
                 case "Sports & Outdoors":
+                case "Sports":
                     return Genre.SportsAndOutdoors;
                 case "Teen & Young Adult":
+                case "Teen":
                     return Genre.TeenAndYoungAdult;
                 case "Test Preparation":
+                case "Test":
                     return Genre.TestPreparation;
                 case "Travel":
                     return Genre.Travel;
 
                 default:
-                    return Genre.Unknown;
+                    throw new IllegalArgumentException("Unknown value");
             }
+        }
+
+        @Override
+        public String toString() {
+            return value;
         }
     }
 }

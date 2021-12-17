@@ -30,8 +30,8 @@ public class PreferencesDao {
             connection = connectionManager.getConnection();
             insertStmt = connection.prepareStatement(insertPreference, Statement.RETURN_GENERATED_KEYS);
             insertStmt.setString(1, preference.getUserName());
-            insertStmt.setString(2, preference.getPrimaryGenre().name());
-            insertStmt.setString(3, preference.getSecondaryGenre().name());
+            insertStmt.setString(2, preference.getPrimaryGenre().getValue());
+            insertStmt.setString(3, preference.getSecondaryGenre().getValue());
             insertStmt.executeUpdate();
 
             resultKey = insertStmt.getGeneratedKeys();
