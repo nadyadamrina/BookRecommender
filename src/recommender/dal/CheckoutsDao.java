@@ -101,7 +101,7 @@ public class CheckoutsDao {
 
     public List<Checkouts> getCheckoutsByISBN(String ISBN) throws SQLException {
         List<Checkouts> checkouts = new ArrayList<Checkouts>();
-        String selectReservations =
+        String selectCheckouts =
                 "SELECT * " +
                         "FROM Checkouts " +
                         "WHERE ISBN=?;";
@@ -110,16 +110,60 @@ public class CheckoutsDao {
         ResultSet results = null;
         try {
             connection = connectionManager.getConnection();
-            selectStmt = connection.prepareStatement(selectReservations);
+            selectStmt = connection.prepareStatement(selectCheckouts);
             selectStmt.setString(1, ISBN);
             results = selectStmt.executeQuery();
 
             while(results.next()) {
-                int checkoutId = results.getInt("ReservationId");
+                int checkoutId = results.getInt("CheckoutId");
                 String resultISBN = results.getString("ISBN");
                 Date checkoutDate = new Date(results.getTimestamp("CheckOutDate").getTime());
 
                 Checkouts checkout = new Checkouts(checkoutId, resultISBN, checkoutDate);
+                checkouts.add(checkout);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(selectStmt != null) {
+                selectStmt.close();
+            }
+            if(results != null) {
+                results.close();
+            }
+        }
+        return checkouts;
+    }
+
+    public List<Checkouts> getTop5CheckoutsByGenre(String genre) throws SQLException {
+        List<Checkouts> checkouts = new ArrayList<Checkouts>();
+        String selectGenre =
+                "SELECT Books.Title, Books.Genre, COUNT(*) AS CheckoutCount" +
+                        "FROM Checkouts INNER JOIN Books ON " +
+                        "Checkouts.ISBN = Books.ISBN" +
+                        "WHERE Books.Genre =?" +
+                        "GROUP BY Checkouts.ISBN" +
+                        "ORDER BY CheckoutCount DESC" +
+                        "LIMIT 5;";
+        Connection connection = null;
+        PreparedStatement selectStmt = null;
+        ResultSet results = null;
+        try {
+            connection = connectionManager.getConnection();
+            selectStmt = connection.prepareStatement(selectGenre);
+            selectStmt.setString(1, genre);
+            results = selectStmt.executeQuery();
+
+            while(results.next()) {
+                int checkoutId = results.getInt("CheckoutId");
+                String ISBN = results.getString("ISBN");
+                Date checkoutDate = new Date(results.getTimestamp("CheckOutDate").getTime());
+
+                Checkouts checkout = new Checkouts(checkoutId, ISBN, checkoutDate);
                 checkouts.add(checkout);
             }
         } catch (SQLException e) {
