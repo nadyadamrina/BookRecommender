@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutsDao {
+    private static CheckoutsDao instance = null;
     protected ConnectionManager connectionManager;
 
-    private static CheckoutsDao instance = null;
     protected CheckoutsDao() {
         connectionManager = new ConnectionManager();
     }
+
     public static CheckoutsDao getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new CheckoutsDao();
         }
         return instance;
@@ -37,7 +38,7 @@ public class CheckoutsDao {
 
             resultKey = insertStmt.getGeneratedKeys();
             int checkoutId = -1;
-            if(resultKey.next()) {
+            if (resultKey.next()) {
                 checkoutId = resultKey.getInt(1);
             } else {
                 throw new SQLException("Unable to retrieve auto-generated key.");
@@ -48,13 +49,13 @@ public class CheckoutsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(insertStmt != null) {
+            if (insertStmt != null) {
                 insertStmt.close();
             }
-            if(resultKey != null) {
+            if (resultKey != null) {
                 resultKey.close();
             }
         }
@@ -74,7 +75,7 @@ public class CheckoutsDao {
             selectStmt.setInt(1, checkoutId);
             results = selectStmt.executeQuery();
 
-            if(results.next()) {
+            if (results.next()) {
                 int resultCheckoutId = results.getInt("CheckoutId");
                 String ISBN = results.getString("ISBN");
                 Date checkoutDate = new Date(results.getTimestamp("CheckOutDate").getTime());
@@ -86,13 +87,13 @@ public class CheckoutsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -114,7 +115,7 @@ public class CheckoutsDao {
             selectStmt.setString(1, ISBN);
             results = selectStmt.executeQuery();
 
-            while(results.next()) {
+            while (results.next()) {
                 int checkoutId = results.getInt("CheckoutId");
                 String resultISBN = results.getString("ISBN");
                 Date checkoutDate = new Date(results.getTimestamp("CheckOutDate").getTime());
@@ -126,13 +127,13 @@ public class CheckoutsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -158,7 +159,7 @@ public class CheckoutsDao {
             selectStmt.setString(1, genre);
             results = selectStmt.executeQuery();
 
-            while(results.next()) {
+            while (results.next()) {
                 int checkoutId = results.getInt("CheckoutId");
                 String ISBN = results.getString("ISBN");
                 Date checkoutDate = new Date(results.getTimestamp("CheckOutDate").getTime());
@@ -170,13 +171,13 @@ public class CheckoutsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -197,10 +198,10 @@ public class CheckoutsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(deleteStmt != null) {
+            if (deleteStmt != null) {
                 deleteStmt.close();
             }
         }

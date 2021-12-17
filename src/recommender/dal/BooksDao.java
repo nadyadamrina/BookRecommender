@@ -3,19 +3,23 @@ package recommender.dal;
 import recommender.model.Books;
 
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BooksDao {
+    private static BooksDao instance = null;
     protected ConnectionManager connectionManager;
 
-    private static BooksDao instance = null;
     protected BooksDao() {
         connectionManager = new ConnectionManager();
     }
+
     public static BooksDao getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new BooksDao();
         }
         return instance;
@@ -49,10 +53,10 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(insertStmt != null) {
+            if (insertStmt != null) {
                 insertStmt.close();
             }
         }
@@ -68,7 +72,7 @@ public class BooksDao {
             selectStmt = connection.prepareStatement(selectBook);
             selectStmt.setString(1, ISBN);
             results = selectStmt.executeQuery();
-            if(results.next()) {
+            if (results.next()) {
                 String title = results.getString("Title");
                 int authorId = results.getInt("AuthorId");
                 String genreAsString = results.getString("Genre");
@@ -91,13 +95,13 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -114,7 +118,7 @@ public class BooksDao {
             selectStmt = connection.prepareStatement(selectBook);
             selectStmt.setString(1, title);
             results = selectStmt.executeQuery();
-            if(results.next()) {
+            if (results.next()) {
                 String ISBN = results.getString("ISBN");
                 String resultTitle = results.getString("Title");
                 int authorId = results.getInt("AuthorId");
@@ -137,13 +141,13 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -160,9 +164,9 @@ public class BooksDao {
         try {
             connection = connectionManager.getConnection();
             selectStmt = connection.prepareStatement(selectRestaurants);
-            selectStmt.setString(1, genre.toString());
+            selectStmt.setString(1, genre);
             results = selectStmt.executeQuery();
-            while(results.next()) {
+            while (results.next()) {
                 String ISBN = results.getString("ISBN");
                 String title = results.getString("Title");
                 int authorId = results.getInt("AuthorId");
@@ -185,13 +189,13 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -210,7 +214,7 @@ public class BooksDao {
             selectStmt = connection.prepareStatement(selectRestaurants);
             selectStmt.setInt(1, authorId);
             results = selectStmt.executeQuery();
-            while(results.next()) {
+            while (results.next()) {
                 String ISBN = results.getString("ISBN");
                 String title = results.getString("Title");
                 Books.Genre genre = Books.Genre.parse(results.getString("Genre"));
@@ -232,13 +236,13 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -262,10 +266,10 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(updateStmt != null) {
+            if (updateStmt != null) {
                 updateStmt.close();
             }
         }
@@ -288,10 +292,10 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(updateStmt != null) {
+            if (updateStmt != null) {
                 updateStmt.close();
             }
         }
@@ -312,10 +316,10 @@ public class BooksDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(deleteStmt != null) {
+            if (deleteStmt != null) {
                 deleteStmt.close();
             }
         }

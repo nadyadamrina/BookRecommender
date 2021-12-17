@@ -1,22 +1,21 @@
 package recommender.dal;
 
 import recommender.model.Authors;
-import recommender.model.Books;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorsDao {
+    private static AuthorsDao instance = null;
     protected ConnectionManager connectionManager;
 
-    private static AuthorsDao instance = null;
     protected AuthorsDao() {
         connectionManager = new ConnectionManager();
     }
+
     public static AuthorsDao getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new AuthorsDao();
         }
         return instance;
@@ -36,7 +35,7 @@ public class AuthorsDao {
 
             resultKey = insertStmt.getGeneratedKeys();
             int authorId = -1;
-            if(resultKey.next()) {
+            if (resultKey.next()) {
                 authorId = resultKey.getInt(1);
             } else {
                 throw new SQLException("Unable to retrieve auto-generated key.");
@@ -47,17 +46,18 @@ public class AuthorsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(insertStmt != null) {
+            if (insertStmt != null) {
                 insertStmt.close();
             }
-            if(resultKey != null) {
+            if (resultKey != null) {
                 resultKey.close();
             }
         }
     }
+
     public Authors updateLastName(Authors author, String newLastName) throws SQLException {
         String updateAuthor = "UPDATE Authors SET LastName=? WHERE AuthorId=?;";
         Connection connection = null;
@@ -75,10 +75,10 @@ public class AuthorsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(updateStmt != null) {
+            if (updateStmt != null) {
                 updateStmt.close();
             }
         }
@@ -98,7 +98,7 @@ public class AuthorsDao {
             selectStmt = connection.prepareStatement(selectAuthors);
             selectStmt.setString(1, firstName);
             results = selectStmt.executeQuery();
-            while(results.next()) {
+            while (results.next()) {
                 int authorId = results.getInt("AuthorId");
                 String lastName = results.getString("LastName");
                 Authors author = new Authors(authorId, firstName, lastName);
@@ -108,13 +108,13 @@ public class AuthorsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -136,10 +136,10 @@ public class AuthorsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(deleteStmt != null) {
+            if (deleteStmt != null) {
                 deleteStmt.close();
             }
         }
@@ -155,7 +155,7 @@ public class AuthorsDao {
             selectStmt = connection.prepareStatement(selectBook);
             selectStmt.setInt(1, authorId);
             results = selectStmt.executeQuery();
-            if(results.next()) {
+            if (results.next()) {
                 int authorIdResult = results.getInt("AuthorId");
                 String firstName = results.getString("FirstName");
                 String lastName = results.getString("LastName");
@@ -165,13 +165,13 @@ public class AuthorsDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }

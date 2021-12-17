@@ -1,6 +1,5 @@
 package recommender.dal;
 
-import recommender.model.Favorites;
 import recommender.model.History;
 
 import java.sql.*;
@@ -8,14 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryDao {
+    private static HistoryDao instance = null;
     protected ConnectionManager connectionManager;
 
-    private static HistoryDao instance = null;
     protected HistoryDao() {
         connectionManager = new ConnectionManager();
     }
+
     public static HistoryDao getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new HistoryDao();
         }
         return instance;
@@ -47,13 +47,13 @@ public class HistoryDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(insertStmt != null) {
+            if (insertStmt != null) {
                 insertStmt.close();
             }
-            if(resultKey != null) {
+            if (resultKey != null) {
                 resultKey.close();
             }
         }
@@ -72,7 +72,7 @@ public class HistoryDao {
             selectStmt = connection.prepareStatement(selectHistory);
             selectStmt.setInt(1, historyId);
             results = selectStmt.executeQuery();
-            if(results.next()) {
+            if (results.next()) {
                 int resultHistoryId = results.getInt("HistoryId");
                 String userName = results.getString("UserName");
                 String searchContent = results.getString("SearchContent");
@@ -85,13 +85,13 @@ public class HistoryDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -112,7 +112,7 @@ public class HistoryDao {
             selectStmt = connection.prepareStatement(selectHistories);
             selectStmt.setString(1, userName);
             results = selectStmt.executeQuery();
-            while(results.next()) {
+            while (results.next()) {
                 int historyId = results.getInt("HistoryId");
                 String resultUserName = results.getString("UserName");
                 String searchContent = results.getString("SearchContent");
@@ -125,13 +125,13 @@ public class HistoryDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(selectStmt != null) {
+            if (selectStmt != null) {
                 selectStmt.close();
             }
-            if(results != null) {
+            if (results != null) {
                 results.close();
             }
         }
@@ -153,10 +153,10 @@ public class HistoryDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
-            if(deleteStmt != null) {
+            if (deleteStmt != null) {
                 deleteStmt.close();
             }
         }
