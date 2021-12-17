@@ -18,8 +18,8 @@ public class DeleteUser extends HttpServlet {
     protected UsersDao usersDao;
 
     @Override
-    public void init() {
-        usersDao = UsersDao.getInstance();
+    public void init()  {
+       usersDao = UsersDao.getInstance();
     }
 
     @Override

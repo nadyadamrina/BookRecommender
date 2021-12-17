@@ -35,7 +35,7 @@ public class UpdateUser extends HttpServlet {
         } else {
             try {
                 Users user = usersDao.getUserFromUserName(userName);
-                if (user == null) {
+                if(user == null) {
                     messages.put("success", "UserName does not exist.");
                 }
                 req.setAttribute("user", user);
@@ -61,7 +61,7 @@ public class UpdateUser extends HttpServlet {
         } else {
             try {
                 Users user = usersDao.getUserFromUserName(userName);
-                if (user == null) {
+                if(user == null) {
                     messages.put("success", "UserName does not exist. No update to perform.");
                 } else {
                     String newFirstName = req.getParameter("firstname");

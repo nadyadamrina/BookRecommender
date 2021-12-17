@@ -6,6 +6,7 @@ import recommender.dal.BooksDao;
 import recommender.model.AlreadyRead;
 import recommender.model.Authors;
 import recommender.model.Books;
+import recommender.model.Users;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

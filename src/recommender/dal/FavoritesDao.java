@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritesDao {
-    private static FavoritesDao instance = null;
     protected ConnectionManager connectionManager;
 
+    private static FavoritesDao instance = null;
     protected FavoritesDao() {
         connectionManager = new ConnectionManager();
     }
-
     public static FavoritesDao getInstance() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new FavoritesDao();
         }
         return instance;
@@ -38,7 +37,7 @@ public class FavoritesDao {
 
             resultKey = insertStmt.getGeneratedKeys();
             int favoriteId = -1;
-            if (resultKey.next()) {
+            if(resultKey.next()) {
                 favoriteId = resultKey.getInt(1);
             } else {
                 throw new SQLException("Unable to retrieve auto-generated key.");
@@ -49,13 +48,13 @@ public class FavoritesDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (insertStmt != null) {
+            if(insertStmt != null) {
                 insertStmt.close();
             }
-            if (resultKey != null) {
+            if(resultKey != null) {
                 resultKey.close();
             }
         }
@@ -74,7 +73,7 @@ public class FavoritesDao {
             selectStmt = connection.prepareStatement(selectFavorite);
             selectStmt.setInt(1, favoriteId);
             results = selectStmt.executeQuery();
-            if (results.next()) {
+            if(results.next()) {
                 int resultFavoriteId = results.getInt("FavoriteId");
                 Date created = new Date(results.getTimestamp("Created").getTime());
                 String userName = results.getString("UserName");
@@ -87,13 +86,13 @@ public class FavoritesDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (selectStmt != null) {
+            if(selectStmt != null) {
                 selectStmt.close();
             }
-            if (results != null) {
+            if(results != null) {
                 results.close();
             }
         }
@@ -114,7 +113,7 @@ public class FavoritesDao {
             selectStmt = connection.prepareStatement(selectFavorites);
             selectStmt.setString(1, userName);
             results = selectStmt.executeQuery();
-            while (results.next()) {
+            while(results.next()) {
                 int favoriteId = results.getInt("FavoriteId");
                 Date created = new Date(results.getTimestamp("Created").getTime());
                 String resultUserName = results.getString("UserName");
@@ -127,13 +126,13 @@ public class FavoritesDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (selectStmt != null) {
+            if(selectStmt != null) {
                 selectStmt.close();
             }
-            if (results != null) {
+            if(results != null) {
                 results.close();
             }
         }
@@ -155,10 +154,10 @@ public class FavoritesDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (deleteStmt != null) {
+            if(deleteStmt != null) {
                 deleteStmt.close();
             }
         }

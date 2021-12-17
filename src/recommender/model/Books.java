@@ -17,7 +17,7 @@ public class Books {
     protected int publicationYear;
     protected String publisher;
     protected int numberOfPages;
-    protected int numberOfRatings;
+    protected  int numberOfRatings;
 
     public Books(String isbn, String title, int authorId, Genre genre, String description, String imageUrl, BigDecimal averageRating,
                  int publicationMonth, int publicationDay, int publicationYear, String publisher, int numberOfPages, int numberOfRatings) {
@@ -181,6 +181,12 @@ public class Books {
             this.value = value;
         }
 
+
+
+        public String getValue() {
+            return value;
+        }
+
         public static List<String> getValues() {
             List<String> values = new ArrayList<>();
             for (Genre genre : Genre.values()) {
@@ -284,10 +290,6 @@ public class Books {
                 default:
                     throw new IllegalArgumentException("Unknown value");
             }
-        }
-
-        public String getValue() {
-            return value;
         }
 
         @Override

@@ -47,7 +47,7 @@ public class CreateUser extends HttpServlet {
 
             try {
                 Users user = new Users(userName, password, firstName, lastName, email, phone);
-                user = usersDao.create(user);
+                user= usersDao.create(user);
                 messages.put("success", "Successfully created " + userName);
             } catch (SQLException e) {
                 e.printStackTrace();

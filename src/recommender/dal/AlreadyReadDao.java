@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlreadyReadDao {
-    private static AlreadyReadDao instance = null;
     protected ConnectionManager connectionManager;
 
+    private static AlreadyReadDao instance = null;
     protected AlreadyReadDao() {
         connectionManager = new ConnectionManager();
     }
-
     public static AlreadyReadDao getInstance() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new AlreadyReadDao();
         }
         return instance;
@@ -47,13 +46,13 @@ public class AlreadyReadDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (insertStmt != null) {
+            if(insertStmt != null) {
                 insertStmt.close();
             }
-            if (resultKey != null) {
+            if(resultKey != null) {
                 resultKey.close();
             }
         }
@@ -72,7 +71,7 @@ public class AlreadyReadDao {
             selectStmt = connection.prepareStatement(selectAlreadyRead);
             selectStmt.setInt(1, alreadyReadId);
             results = selectStmt.executeQuery();
-            if (results.next()) {
+            if(results.next()) {
                 int resultAlreadyReadId = results.getInt("AlreadyReadId");
                 Date completed = new Date(results.getTimestamp("Completed").getTime());
                 String userName = results.getString("UserName");
@@ -85,13 +84,13 @@ public class AlreadyReadDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (selectStmt != null) {
+            if(selectStmt != null) {
                 selectStmt.close();
             }
-            if (results != null) {
+            if(results != null) {
                 results.close();
             }
         }
@@ -112,7 +111,7 @@ public class AlreadyReadDao {
             selectStmt = connection.prepareStatement(selectAlreadyReads);
             selectStmt.setString(1, userName);
             results = selectStmt.executeQuery();
-            while (results.next()) {
+            while(results.next()) {
                 int alreadyReadId = results.getInt("AlreadyReadId");
                 Date completed = new Date(results.getTimestamp("Completed").getTime());
                 String resultUserName = results.getString("UserName");
@@ -125,13 +124,13 @@ public class AlreadyReadDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (selectStmt != null) {
+            if(selectStmt != null) {
                 selectStmt.close();
             }
-            if (results != null) {
+            if(results != null) {
                 results.close();
             }
         }
@@ -152,7 +151,7 @@ public class AlreadyReadDao {
             selectStmt = connection.prepareStatement(selectAlreadyReads);
             selectStmt.setString(1, ISBN);
             results = selectStmt.executeQuery();
-            while (results.next()) {
+            while(results.next()) {
                 int alreadyReadId = results.getInt("AlreadyReadId");
                 Date completed = new Date(results.getTimestamp("Completed").getTime());
                 String userName = results.getString("UserName");
@@ -165,13 +164,13 @@ public class AlreadyReadDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (selectStmt != null) {
+            if(selectStmt != null) {
                 selectStmt.close();
             }
-            if (results != null) {
+            if(results != null) {
                 results.close();
             }
         }
@@ -193,10 +192,10 @@ public class AlreadyReadDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (deleteStmt != null) {
+            if(deleteStmt != null) {
                 deleteStmt.close();
             }
         }

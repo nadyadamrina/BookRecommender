@@ -7,24 +7,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UsersDao {
-    private static UsersDao instance = null;
     protected ConnectionManager connectionManager;
 
+    private static UsersDao instance = null;
     protected UsersDao() {
         connectionManager = new ConnectionManager();
     }
-
     public static UsersDao getInstance() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new UsersDao();
         }
         return instance;
     }
 
-    public Users create(Users user) throws SQLException {
+    public Users create(Users user)  throws SQLException {
         String insertUser = "INSERT INTO Users(UserName,Password,FirstName,LastName,Phone,Email) VALUES(?,?,?,?,?,?);";
         Connection connection = null;
         PreparedStatement insertStmt = null;
@@ -46,10 +46,10 @@ public class UsersDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (insertStmt != null) {
+            if(insertStmt != null) {
                 insertStmt.close();
             }
         }
@@ -67,7 +67,7 @@ public class UsersDao {
 
             results = selectStmt.executeQuery();
 
-            if (results.next()) {
+            if(results.next()) {
                 String resultUserName = results.getString("UserName");
                 String password = results.getString("Password");
                 String firstName = results.getString("FirstName");
@@ -81,13 +81,13 @@ public class UsersDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (selectStmt != null) {
+            if(selectStmt != null) {
                 selectStmt.close();
             }
-            if (results != null) {
+            if(results != null) {
                 results.close();
             }
         }
@@ -106,7 +106,7 @@ public class UsersDao {
             selectStmt = connection.prepareStatement(selectUsers);
             selectStmt.setString(1, lastName);
             results = selectStmt.executeQuery();
-            while (results.next()) {
+            while(results.next()) {
                 String userName = results.getString("UserName");
                 String password = results.getString("Password");
                 String firstName = results.getString("FirstName");
@@ -122,13 +122,13 @@ public class UsersDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (selectStmt != null) {
+            if(selectStmt != null) {
                 selectStmt.close();
             }
-            if (results != null) {
+            if(results != null) {
                 results.close();
             }
         }
@@ -154,10 +154,10 @@ public class UsersDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (updateStmt != null) {
+            if(updateStmt != null) {
                 updateStmt.close();
             }
         }
@@ -178,10 +178,10 @@ public class UsersDao {
             e.printStackTrace();
             throw e;
         } finally {
-            if (connection != null) {
+            if(connection != null) {
                 connection.close();
             }
-            if (deleteStmt != null) {
+            if(deleteStmt != null) {
                 deleteStmt.close();
             }
         }
