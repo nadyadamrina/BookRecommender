@@ -23,8 +23,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
-                <a class="nav-link ${pageContext.request.requestURI.endsWith('/') ? 'active' : ''}" aria-current="page" href="${pageContext.request.contextPath}/">Find Users</a>
-                <a class="nav-link ${pageContext.request.requestURI.endsWith('/createuser') ? 'active' : ''}" aria-current="page" href="${pageContext.request.contextPath}/createuser">Create User</a>
+                <a class="nav-link ${pageContext.request.requestURI.endsWith('/findusers/') ? 'active' : ''}" aria-current="page" href="${pageContext.request.contextPath}/">Find Users</a>
+                <a class="nav-link ${pageContext.request.requestURI.endsWith('/createuser/') ? 'active' : ''}" aria-current="page" href="${pageContext.request.contextPath}/createuser">Create User</a>
             </div>
         </div>
     </div>
