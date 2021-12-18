@@ -8,27 +8,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Delete a User<</title>
-</head>
-<body>
-  <h1>${messages.title}</h1>
-  <form action="deleteuser" method="post">
-    <p>
-    <div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-      <label for="username">UserName</label>
-      <input id="username" name="username" value="${fn:escapeXml(param.username)}">
-    </div>
-    </p>
-    <p>
-      <span id="submitButton" <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-        <input type="submit">
-      </span>
-    </p>
-  </form>
-  <br/><br/>
-</body>
-</html>
+<t:genericpage title="Delete a User">
+  <jsp:attribute name="header">
+    <h1>${messages.title}</h1>
+  </jsp:attribute>
+    <jsp:body>
+        <div class="row justify-content-start">
+            <div class="col-4">
+                <form action="deleteuser" method="post">
+                    <div class="mb-3">
+                        <div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
+                            <label for="username" class="form-label">UserName</label>
+                            <input id="username" name="username"
+                                   value="${fn:escapeXml(param.username)}" class="form-control">
+                        </div>
+                    </div>
+                    <span id="submitButton"
+                          <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                  </span>
+                </form>
+            </div>
+        </div>
+    </jsp:body>
+</t:genericpage>

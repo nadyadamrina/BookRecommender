@@ -8,39 +8,42 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Find Preferences</title>
-</head>
-<body>
-<table border="1">
-    <tr>
-        <th>Primary</th>
-        <th>Secondary</th>
-    </tr>
+<t:genericpage title="Find Preferences">
+  <jsp:attribute name="header">
+    <h1>Preferences for a User by Username</h1>
+  </jsp:attribute>
+    <jsp:body>
+        <div class="row justify-content-start">
+            <div class="col-4">
+                <form action="findpreferences" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input id="username" name="username" value="${fn:escapeXml(param.username)}"
+                               class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <br/><br/><br/>
+                    <span id="successMessage"><b>${messages.success}</b></span>
+                </form>
+            </div>
+        </div>
 
-    <form action="findpreferences" method="post">
-        <h1>Preferences for a User by Username</h1>
-        <p>
-            <label for="username">Username</label>
-            <input id="username" name="username" value="${fn:escapeXml(param.username)}">
-        </p>
-        <p>
-            <input type="submit">
-            <br/><br/><br/>
-            <span id="successMessage"><b>${messages.success}</b></span>
-        </p>
-    </form>
+        <table border="1" class="table table-striped">
+            <tr>
+                <th>Primary</th>
+                <th>Secondary</th>
+            </tr>
 
-    <c:forEach items="${preferences}" var="pref">
-        <tr>
-            <td><c:out value="${pref.getPrimaryGenre()}" /></td>
-            <td><c:out value="${pref.getSecondaryGenre()}" /></td>
-        </tr>
-    </c:forEach>
+            <c:forEach items="${preferences}" var="pref">
+                <tr>
+                    <td><c:out value="${pref.getPrimaryGenre()}"/></td>
+                    <td><c:out value="${pref.getSecondaryGenre()}"/></td>
+                </tr>
+            </c:forEach>
 
-</table>
-</body>
-</html>
+        </table>
+    </jsp:body>
+</t:genericpage>
