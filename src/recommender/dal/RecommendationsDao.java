@@ -1,5 +1,6 @@
 package recommender.dal;
 
+import recommender.model.Preferences;
 import recommender.model.Recommendations;
 
 import java.sql.*;
@@ -97,7 +98,7 @@ public class RecommendationsDao {
         return null;
     }
 
-    public List<Recommendations> getRecommendationsByGenre(String username, String genre) throws SQLException {
+    public List<Recommendations> getRecommendationsByGenre(String username, Preferences genre) throws SQLException {
         List<Recommendations> recommendations = new ArrayList<Recommendations>();
         String selectRecommendations =
                 "SELECT Books.Title, Books.Genre, Books.ISBN, COUNT(*) AS CheckoutCount " +
@@ -113,7 +114,7 @@ public class RecommendationsDao {
         try {
             connection = connectionManager.getConnection();
             selectStmt = connection.prepareStatement(selectRecommendations);
-            selectStmt.setString(1, genre);
+            selectStmt.setString(1, genre.getPrimaryGenre().getValue());
             results = selectStmt.executeQuery();
 
             while(results.next()) {

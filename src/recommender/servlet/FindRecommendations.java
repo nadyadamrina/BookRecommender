@@ -64,9 +64,8 @@ public class FindRecommendations extends HttpServlet {
             preferences = preferencesDao.getPreferencesByUserName(userName);
 
             for (Preferences preference : preferences) {
-                String pSearch = preference.toString();
                 List<Recommendations> recommendations = new ArrayList<>();
-                recommendations = recommendationsDao.getRecommendationsByGenre(userName, pSearch);
+                recommendations = recommendationsDao.getRecommendationsByGenre(userName, preference);
                 for (Recommendations recommendation : recommendations) {
                     allRecommendations.add(recommendation);
                     Books book = booksDao.getBookByISBN(recommendation.getIsbn());
