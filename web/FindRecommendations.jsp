@@ -19,7 +19,6 @@
     <jsp:body>
         <table border="1" class="table table-striped mt-5">
             <tr>
-                <th>Created</th>
                 <th>ISBN</th>
                 <th>Title</th>
                 <th>Authors</th>
@@ -28,7 +27,6 @@
             <c:forEach items="${recommendations}" var="rec" varStatus="status">
 
                 <tr>
-                    <td><c:out value="${rec.getCreated()}"/></td>
                     <td><c:out value="${rec.getIsbn()}"/></td>
                     <td>${books[status.index].getTitle()}</td>
                     <td>${authors[status.index].getFirstName().concat(" ").concat(authors[status.index].getLastName())}</td>

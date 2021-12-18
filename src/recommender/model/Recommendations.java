@@ -21,6 +21,11 @@ public class Recommendations {
         this.created = created;
     }
 
+    public Recommendations(String userName, String isbn) {
+        this.userName = userName;
+        this.isbn = isbn;
+    }
+
     public int getRecommendationId() {
         return recommendationId;
     }

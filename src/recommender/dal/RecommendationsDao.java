@@ -97,13 +97,13 @@ public class RecommendationsDao {
         return null;
     }
 
-    public List<Recommendations> getRecommendationsByGenre(String genre) throws SQLException {
+    public List<Recommendations> getRecommendationsByGenre(String username, String genre) throws SQLException {
         List<Recommendations> recommendations = new ArrayList<Recommendations>();
         String selectRecommendations =
-                "SELECT Books.Title, Books.Genre, COUNT(*) AS CheckoutCount " +
+                "SELECT Books.Title, Books.Genre, Books.ISBN, COUNT(*) AS CheckoutCount " +
                         "FROM Checkouts INNER JOIN Books ON " +
                         "Checkouts.ISBN = Books.ISBN " +
-                        "WHERE Books.Genre =? " +
+                        "WHERE Books.Genre = ? " +
                         "GROUP BY Checkouts.ISBN " +
                         "ORDER BY CheckoutCount DESC " +
                         "LIMIT 5;";
@@ -117,11 +117,9 @@ public class RecommendationsDao {
             results = selectStmt.executeQuery();
 
             while(results.next()) {
-                String userName = results.getString("UserName");
                 String ISBN = results.getString("ISBN");
-                Date created = new Date(results.getTimestamp("Created").getTime());
 
-                Recommendations recommendation = new Recommendations(userName, ISBN, created);
+                Recommendations recommendation = new Recommendations(username, ISBN);
                 recommendations.add(recommendation);
             }
         } catch (SQLException e) {
