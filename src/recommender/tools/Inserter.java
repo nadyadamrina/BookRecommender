@@ -208,11 +208,7 @@ public class Inserter {
 		Recommendations rec1 = recommendationsDao.getRecommendationById(1);
 		System.out.format("Reading recommendations by id: u:%d n:%s f:%s \n", 
 				rec1.getRecommendationId(), rec1.getIsbn(), rec1.getUserName());
-		List<Recommendations> recList1 = recommendationsDao.getRecommendationsByUserName("julie");
-		for (Recommendations recommendation: recList1) {
-			System.out.format("Reading recommendations by username: u:%d n:%s f:%s \n", 
-					recommendation.getRecommendationId(), recommendation.getIsbn(), recommendation.getUserName());
-		}
+
 		List<Recommendations> recList2 = recommendationsDao.getRecommendationsByISBN("ISBN1");
 		for (Recommendations recommendation: recList2) {
 			System.out.format("Reading recommendations by isbn: u:%d n:%s f:%s \n", 

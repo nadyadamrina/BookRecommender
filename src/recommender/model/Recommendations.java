@@ -15,6 +15,12 @@ public class Recommendations {
         this.created = created;
     }
 
+    public Recommendations(String userName, String isbn, Date created) {
+        this.userName = userName;
+        this.isbn = isbn;
+        this.created = created;
+    }
+
     public int getRecommendationId() {
         return recommendationId;
     }
