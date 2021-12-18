@@ -97,28 +97,31 @@ public class RecommendationsDao {
         return null;
     }
 
-    public List<Recommendations> getRecommendationsByUserName(String userName) throws SQLException {
+    public List<Recommendations> getRecommendationsByGenre(String genre) throws SQLException {
         List<Recommendations> recommendations = new ArrayList<Recommendations>();
         String selectRecommendations =
-                "SELECT * " +
-                        "FROM Recommendations " +
-                        "WHERE UserName=?;";
+                "SELECT Books.Title, Books.Genre, COUNT(*) AS CheckoutCount" +
+                        "FROM Checkouts INNER JOIN Books ON " +
+                        "Checkouts.ISBN = Books.ISBN" +
+                        "WHERE Books.Genre =?" +
+                        "GROUP BY Checkouts.ISBN" +
+                        "ORDER BY CheckoutCount DESC" +
+                        "LIMIT 5;";
         Connection connection = null;
         PreparedStatement selectStmt = null;
         ResultSet results = null;
         try {
             connection = connectionManager.getConnection();
             selectStmt = connection.prepareStatement(selectRecommendations);
-            selectStmt.setString(1, userName);
+            selectStmt.setString(1, genre);
             results = selectStmt.executeQuery();
 
             while(results.next()) {
-                int recommendationId = results.getInt("RecommendationId");
-                String resultUserName = results.getString("UserName");
+                String userName = results.getString("UserName");
                 String ISBN = results.getString("ISBN");
                 Date created = new Date(results.getTimestamp("Created").getTime());
 
-                Recommendations recommendation = new Recommendations(recommendationId, resultUserName, ISBN, created);
+                Recommendations recommendation = new Recommendations(userName, ISBN, created);
                 recommendations.add(recommendation);
             }
         } catch (SQLException e) {

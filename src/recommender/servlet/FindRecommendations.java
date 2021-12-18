@@ -2,9 +2,11 @@ package recommender.servlet;
 
 import recommender.dal.AuthorsDao;
 import recommender.dal.BooksDao;
+import recommender.dal.PreferencesDao;
 import recommender.dal.RecommendationsDao;
 import recommender.model.Authors;
 import recommender.model.Books;
+import recommender.model.Preferences;
 import recommender.model.Recommendations;
 
 import javax.servlet.ServletException;
@@ -24,12 +26,14 @@ public class FindRecommendations extends HttpServlet {
     protected RecommendationsDao recommendationsDao;
     protected BooksDao booksDao;
     protected AuthorsDao authorsDao;
+    protected PreferencesDao preferencesDao;
 
     @Override
     public void init() {
         recommendationsDao = RecommendationsDao.getInstance();
         booksDao = BooksDao.getInstance();
         authorsDao = AuthorsDao.getInstance();
+        preferencesDao = PreferencesDao.getInstance();
     }
 
     @Override
@@ -50,24 +54,31 @@ public class FindRecommendations extends HttpServlet {
         if (userName == null || userName.trim().isEmpty()) {
             messages.put("title", "Invalid username.");
         } else {
-            messages.put("title", "BlogPosts for " + userName);
+            messages.put("title", "Recommendations for " + userName);
         }
-
-        List<Recommendations> recommendations = new ArrayList<>();
+        List<Preferences> preferences = new ArrayList<>();
+        List<Recommendations> allRecommendations = new ArrayList<>();
         List<Books> books = new ArrayList<>();
         List<Authors> authors = new ArrayList<>();
         try {
-            recommendations = recommendationsDao.getRecommendationsByUserName(userName);
-            for (Recommendations recommendation : recommendations) {
-                Books book = booksDao.getBookByISBN(recommendation.getIsbn());
-                books.add(book);
-                authors.add(authorsDao.getAuthorById(book.getAuthorId()));
+            preferences = preferencesDao.getPreferencesByUserName(userName);
+//            recommendations = recommendationsDao.getRecommendationsByGenre(userName);
+            for (Preferences preference : preferences) {
+                String pSearch = preference.toString();
+                List<Recommendations> recommendations = new ArrayList<>();
+                recommendations = recommendationsDao.getRecommendationsByGenre(pSearch);
+                for (Recommendations recommendation : recommendations) {
+                    allRecommendations.add(recommendation);
+                    Books book = booksDao.getBookByISBN(recommendation.getIsbn());
+                    books.add(book);
+                    authors.add(authorsDao.getAuthorById(book.getAuthorId()));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IOException(e);
         }
-        req.setAttribute("recommendations", recommendations);
+        req.setAttribute("recommendations", allRecommendations);
         req.setAttribute("books", books);
         req.setAttribute("authors", authors);
         req.getRequestDispatcher("/FindRecommendations.jsp").forward(req, resp);
