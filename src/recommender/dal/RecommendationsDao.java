@@ -100,12 +100,12 @@ public class RecommendationsDao {
     public List<Recommendations> getRecommendationsByGenre(String genre) throws SQLException {
         List<Recommendations> recommendations = new ArrayList<Recommendations>();
         String selectRecommendations =
-                "SELECT Books.Title, Books.Genre, COUNT(*) AS CheckoutCount" +
+                "SELECT Books.Title, Books.Genre, COUNT(*) AS CheckoutCount " +
                         "FROM Checkouts INNER JOIN Books ON " +
-                        "Checkouts.ISBN = Books.ISBN" +
-                        "WHERE Books.Genre =?" +
-                        "GROUP BY Checkouts.ISBN" +
-                        "ORDER BY CheckoutCount DESC" +
+                        "Checkouts.ISBN = Books.ISBN " +
+                        "WHERE Books.Genre =? " +
+                        "GROUP BY Checkouts.ISBN " +
+                        "ORDER BY CheckoutCount DESC " +
                         "LIMIT 5;";
         Connection connection = null;
         PreparedStatement selectStmt = null;

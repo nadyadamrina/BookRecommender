@@ -62,7 +62,7 @@ public class FindRecommendations extends HttpServlet {
         List<Authors> authors = new ArrayList<>();
         try {
             preferences = preferencesDao.getPreferencesByUserName(userName);
-//            recommendations = recommendationsDao.getRecommendationsByGenre(userName);
+
             for (Preferences preference : preferences) {
                 String pSearch = preference.toString();
                 List<Recommendations> recommendations = new ArrayList<>();
